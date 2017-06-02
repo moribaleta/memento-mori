@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title>memnto.mori</title>
+        <link rel="stylesheet" href="resources/css/style.css">
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>    
+        <div class="background">
+            <iframe src="slideshow1.html" height="100%" width="100%"></iframe>
+        </div>
+        <div class="button_div">
+            <button id="button" onclick='toggle()'>
+                <img id="button_ic" src="resources/images/ic_search_white_48px.svg">
+            </button>    
+        </div>
+
+        <div class="search">
+            <!--<form method="get" action="http://www.google.com/search">
+
+<table border="0" cellpadding="0">
+<tr>
+<td>
+<input type="text"  id="text" name="q" size="25" maxlength="255" value="" placeholder="Google search" />
+<br>
+<input type="submit" id="button" value="Search" />
+</td>
+</tr>
+<tr>
+
+</tr>
+</table>                
+
+</form>-->
+            <div class='form'>
+                <input type="text" id="text" name="q" placeholder="Google search" 
+                       autofocus />
+                <button id="button" onclick="submit()"> search </button>
+            </div>
+            <div class=time>
+                <div class="date">
+
+                </div>
+                <div class="time_value">
+
+                </div>
+
+
+            </div>
+        </div>
+        <script>
+            var open_close = true;
+            var button = document.getElementById('button_ic');
+            var button_bg = document.getElementById('button');
+            var text_input = document.getElementById('text');
+            function toggle(){
+                if(open_close){
+                    $('.search').addClass('show');
+                    $('.background').css('filter','blur(10px)');
+                    open_close = false;   
+                    button.src="resources/images/ic_close_white_48px.svg";
+                    $(button_bg).css('background','rgba(0,0,0,0)');
+                    $('#text').focus();
+                }else{
+
+                    text_input.value = "";
+                    $('.search').addClass('close');
+                    $('.background').css('filter','blur(0px)');
+                    setTimeout(function(){
+                        $('.search').removeClass('show');    
+                        $('.search').removeClass('close');
+                        $(button_bg).css('background','rgba(0,0,0,0.3)');
+                    },200);                    
+                    open_close = true;
+                    button.src="resources/images/ic_search_white_48px.svg";
+                }                
+            }
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    //alert('enter key is pressed');
+                    submit();
+                }
+            });
+
+            var interval = setInterval(function(){
+                getTime();
+            },1000);
+
+            var d = new Date();
+            var weekday = new Array(7);
+            weekday[0] =  "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+
+            function getTime(){
+                var time = new Date().toLocaleString();
+                time = time.split(',');                
+                var n = weekday[d.getDay()] +" "+ time[0];
+                $('.date').html(n);
+                $('.time_value').html(time[1]); 
+            }
+            getTime();
+
+
+            function submit(){
+                var value = document.getElementById('text').value;
+                console.log(value);
+                if(ValidURL(value)){
+                    console.log('url');
+                    //window.location.href = value;
+                    value = "http://"+value;
+                    window.open(value,'_blank');
+
+                }else{
+                    console.log('search');
+                    var url ='http://www.google.com/search?q=' + value;
+                    window.open(url,'_blank');  
+                    //window.open('http://google.com/search?q='+value);
+                }
+            }
+
+            function ValidURL(str) {
+                var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/;
+                if(!regex .test(str)) {                
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+    </body>
+</html>

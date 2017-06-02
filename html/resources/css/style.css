@@ -1,0 +1,273 @@
+
+@font-face{
+    font-family: 'ADAM_font';    
+    src: url('../font/ADAM.otf')  format('truetype');
+}
+@font-face{
+    font-family: 'Karla-Regular';
+    src: url('../font/Karla-Regular.ttf') 
+        format('truetype');
+}
+
+@font-face{
+    font-family: 'Karla-Bold';
+    src: url('../font/Karla-Bold.ttf') 
+        format('truetype');
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {        
+    background: rgba(0,0,0,0.8);    
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0, 0, 0, 0.4); 
+}
+
+body{
+    margin: 0;
+    overflow: hidden;
+}
+.container{    
+    background: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.loader{
+    width: 100%;
+    background: white;
+    position: fixed;
+    z-index: 1000;
+}
+
+.header{
+    z-index: 100;
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    position: fixed;  
+    opacity: 0.95;
+}
+
+.scroll_down{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.footer-logo{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 0 15px;
+    font-family: Karla-Bold;
+    color: white;
+    z-index: 100;
+}
+.nav{    
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+    right: 0;
+    position: absolute;
+    font-family: 'Karla-Regular';
+}
+
+.nav .nav_list{
+    float: right;
+    text-align: right;   
+    display: none;
+    animation: fadein .3s;
+    cursor: default;
+}
+
+
+.nav ul li{
+    width: 50px;
+    margin: 0 10px;
+    list-style: none;
+    display: inline-block;
+    text-align: center;    
+    cursor: pointer;
+    color: black;
+    transition: all .2s ease-in-out;    
+}
+
+.nav ul li a{
+    text-decoration: none;
+    color: black;
+    transition: all .2s ease-in-out; 
+}
+
+.nav ul li a:hover{
+    color: #808080;
+}
+
+.nav .nav_button{
+    margin: 0 10px;
+    width: 50px;
+    height: 50px;
+    float: right;
+}
+
+
+.fadeout{
+    animation: fadeout_text 2s;
+}
+
+.fadein_view{
+    animation: fadein 1s;
+}
+
+@keyframes fadeoutloader{
+    0%{
+        opacity: 1;    
+             
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        transform:  scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0;    
+        transform: translateX(100%);
+    }
+    70%{
+        opacity: 0.05;
+    }
+    100%{
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout_text{
+    0%{
+        opacity: 1;    
+    }
+    100%{     
+        opacity: 0;
+    }
+}
+
+@keyframes fadein_text{
+    0%{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*home*/
+.iframe{
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+#home{    
+}
+/* abouts */
+/*#profile{   
+height: 50%;
+width: auto;
+z-index: 2;
+right: 0;
+margin: 0 50px;
+position: absolute;
+}*/
+#abouts{
+    z-index: ;
+    background: white;
+    display: block;
+}
+#profile{  
+    border-radius: 5px;
+    position: absolute;
+    right: 50;  
+    height: 75%;
+    z-index: 1;  
+    margin: 55px 20px 0 30px;
+}
+
+#text_abouts{
+    display: inline-block;
+    width: 100%;    
+    padding: 160px 0px;
+    position: absolute;
+    z-index: 1;
+    font-family: Karla-Regular;
+}
+#text_abouts block{
+    background: black;
+    color: white;    
+    padding: 0 8px;
+}
+
+#text_abouts #quote{
+    margin: 0 100px;
+}
+
+/*#text_abouts #name{
+text-align: center;
+}
+*/
+#text_abouts #name{
+    font-size: 32px;
+    font-family: "Karla";
+    color: rgb( 16, 24, 32 );
+    line-height: 1.744;
+    text-align: left;
+    position: absolute;
+    left: 150;
+    z-index: 8;
+    text-shadow: 0 3px 15px rgba(0,0,0,0.2);  
+}
+
+#footer_abouts{
+    font-size: 50px;
+    font-family: "Karla";
+    color: rgb( 30, 29, 30 );
+    line-height: 1.938;
+    text-align: left;
+    position: absolute;
+    left: 184.297px;
+    top: 800px;
+    z-index: 2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+#blurred_background{    
+    z-index: -1;
+    margin-top: 10%;
+    height: 90%;
+    width: 100%;
+    filter: blur(50px);
+    opacity: 0.2;
+    position: absolute;
+}
+
+#gallery{
+    height: auto;    
+}
+
+#footer{
+    background: #333;
+}

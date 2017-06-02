@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>memnto-mori</title>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+        <script src="resources/owl-carousel/owl.carousel.js">
+        </script>
+        <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="resources/css/hamburger.css">
+        <link rel="stylesheet" href="resources/owl-carousel/owl.carousel.scss">     
+        <link rel="stylesheet" href="resources/css/index-style.css">   
+    </head>
+    <body>
+        <div class="header">
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">memnto-mori</a>
+                    </div>
+                    <div class="hamburger hamburger--collapse js-hamburger">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-nav" id="navigation">                     
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">about</a></li>
+                        <li><a href="#">gallery</a></li>
+                        <li><a href="#">contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <img class="background" src="resources/images/birds.jpg">
+                    </div>
+                </div>
+                <div class="col-md-8">                    
+                    <div class="row">
+                        <div class="main">
+                            <div class="owl-carousel owl-theme">
+                                <div>
+                                    <img class="background" src="resources/images/citylighta.jpg">
+                                </div>
+                                <div>
+                                    <img class="background" src="resources/images/birds.jpg">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                </div>                                
+            </div>
+
+        </div>
+        <script>
+            $('.hamburger').on("click",function(){
+                this.classList.toggle("is-active");
+                if($('#navigation').css("display")=='block'){
+                    /* setTimeout(function(){
+                        $('.nav_list').css("display","none");    
+                    },300);*/
+                    /* $('#navigation').css("animation",'fadeout .4s'); */   
+                    $('#navigation').css("display","none");    
+                }else{
+                    /*$('.nav_list').css("animation",'fadein .3s');   */
+                    $('#navigation').css("display","block");
+                }
+            });
+
+            $(document).ready(function(){
+                $('.owl-carousel').owlCarousel();
+            });
+        </script>
+    </body>
+</html>

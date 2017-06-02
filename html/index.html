@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="resources/css/hamburger.css">
+        <link rel="stylesheet" 
+              type="text/css"  href="resources/css/style.css">
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/js/isinviewport.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="loader">
+            <iframe class="iframe" src="loading.html"></iframe>
+        </div>
+
+        <div class="header">
+
+            <div class="nav">
+                <div class="nav_button">
+                    <div class="hamburger hamburger--collapse">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                </div>  
+                <ul class="nav_list">
+                    <li>
+                        <a href="#home">home</a>
+                    </li>                    
+                    <li>
+                        <a href="#abouts">abouts</a>
+                    </li>                    
+                    <li>
+                        <a href="#gallery">gallery</a>
+                    </li>                    
+                    <li>
+                        <a href="#contacts">contacts</a>
+                    </li>                    
+                </ul>
+
+            </div>
+        </div>
+        <div class="footer-logo">
+            <h1>memnto/mori</h1>
+        </div>
+        <div class="container" id="home">
+            <iframe class="iframe" id="gallery_home" src="slideshow1.html"></iframe>
+        </div>
+
+        <div class="container" id="abouts"> 
+            <img id="blurred_background" src="resources/images/profile.jpg">    
+            <div id="text_abouts">
+                <h1 id="quote">" photography is <block>life</block> frozen in time "</h1>
+                <h2 id="name">hi! I'm Mori Baleta</h2>
+
+            </div> 
+            <h3 id='footer_abouts'>and this is my gallery</h3>
+            <img id="profile" src="resources/images/profile.jpg"> 
+        </div>
+
+        <div class="container" id="gallery">
+            <iframe class="iframe" src="gallery.html"></iframe>  
+        </div>
+
+        <div class="container" id="footer">            
+        </div>
+        <script>
+            var gallery_view = true;
+            $('.hamburger').on("click",function(){
+                this.classList.toggle("is-active");
+                if($('.nav_list').css("display")=='block'){
+                    setTimeout(function(){
+                        $('.nav_list').css("display","none");    
+                    },300);
+                    $('.nav_list').css("animation",'fadeout .4s');                                
+                }else{
+                    $('.nav_list').css("animation",'fadein .3s');   
+                    $('.nav_list').css("display","block");
+                }
+            });
+
+            function gotohome(){
+                $('html, body').animate({ scrollTop: $('#home').offset().top }, { duration: 200 } );
+                $('.loader').addClass('fadeout');
+                setTimeout(function(){                   
+                    $('.loader').hide();                 
+                    $('body').css('overflow-y','scroll');
+                },1800);
+            }
+
+            $('a').click(function() {
+                var targetDiv = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(targetDiv).offset().top
+                }, 500);
+            });
+
+            $(window).on('scroll', function() {
+                // as you scroll this will continuously be fire:
+                // if the distance you've scrolled is greater than or equal to the top position of section 2 add the in-view class 
+                var $abouts = $( '#abouts' );
+                if($abouts.is(':in-viewport')) {
+                    $('#text_abouts').addClass('fadein_view');
+                    setTimeout(function(){
+                        $('#footer_abouts').addClass('fadein_view');
+                    },500);
+                    //$('.footer-logo').css("color","black");
+                }
+                var $home = $('#home');
+                var $footer = $('#footer');                
+                if($home.is(':in-viewport')||$footer.is(':in-viewport')){
+                    $('.footer-logo').css("color","white"); 
+                }
+                if($abouts.is(':in-viewport')){
+                    $('.footer-logo').css("color","black"); 
+                }
+
+                if($home.is(':in-viewport')){
+                    $('.header').css("background","none");   $('.header').removeClass("scroll_down");
+                }else{
+                    $('.header').css("background","white");
+                    $('.header').addClass("scroll_down");
+                }
+                /*var $gallery = $('#gallery');
+                if($gallery.is(':in-viewport')&&gallery_view){
+                    gallery_view = false;
+                    $('html, body').animate({
+                        scrollTop: $gallery.offset().top/2
+                    }, 1000);
+                }*/
+            });
+
+        </script>
+    </body>
+</html>

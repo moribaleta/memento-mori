@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="resources/css/loading.css">
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div class="cssload-container">
+            <ul class="cssload-flex-container">
+                <li>
+                    <span class="cssload-loading"></span>
+                </li>
+            </ul>
+        </div>
+        <div id="logo">
+            <h1>memnto/mori</h1>
+        </div>
+        <script>
+            $(document).ready(function(){
+                setTimeout(function(){         
+                    $('#logo').css('display','block');
+                    $('.cssload-container').addClass('close');
+                    setTimeout(function(){
+                        $('.cssload-container').hide(); 
+                        setTimeout(function(){
+                            parent.gotohome();
+                        },2000);
+                    },2000);
+
+                },5000); 
+            });
+        </script>
+    </body>
+</html>

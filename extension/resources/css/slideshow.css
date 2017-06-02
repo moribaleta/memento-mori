@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    background-color:black;    
+    overflow-y: hidden;
+}
+
+/* Slideshow container */
+.slideshow-container{
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+}
+.mySlides{ 
+    width: 100%;
+     animation: slideinright 10s;
+    
+}
+.mySlides img{    
+    height: auto;
+    width: 100%;
+    transition: all .2s ease-in-out;
+}  
+
+/*from left to right*/
+@keyframes slideinright{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    80%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+
+

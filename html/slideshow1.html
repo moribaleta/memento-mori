@@ -1,0 +1,142 @@
+<DOCTYPE! HTML>
+
+    <html>
+
+        <head>            
+            <script src="resources/js/jquery-3.2.1.min.js"></script>
+            <link rel="stylesheet" href="resources/css/slideshow.css">
+        </head>
+
+        <body>
+
+            <div class="slideshow-container">
+                <div class="slideshow-background-container">
+                    <img src="" class="slideshow-background">
+                </div>
+                <div class='scroll'>
+                    <div class="scroll_button next">
+                        <a onclick="move(1)">
+                            <img src="resources/images/arrow-down.png">
+                        </a>
+                    </div>                        
+                    <div class="scroll_button prev">
+                        <a onclick="move(-1)">
+                            <img src="resources/images/arrow-down.png">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mySlides  " id="1">
+                    <!--h1>keep it real with asics gel lyte III</h1-->
+                    <img src='resources/images/IMG_2330.jpg'>                
+                </div>
+
+                <div class="mySlides  " id="2">
+                    <!--h1>N9000 for the win in Diadora</h1-->
+                    <img src='resources/images/IMG_3539.jpg'>
+
+                </div>
+
+                <div class="mySlides  " id="3">
+                    <!--h1>New Balance 997 brings the balance of the world</h1-->
+                    <img src='resources/images/IMG_4718.JPG'>
+
+                </div>
+                <div class="mySlides " id="4">
+                    <!--h1>keep it tight for the air force</h1-->
+                    <img src='resources/images/IMG_4728.JPG'>
+
+                </div>
+                <div class="mySlides  " id="5">
+                    <!--h1>keep it tight for the air force</h1-->
+                    <img src='resources/images/IMG_4794.jpg'>
+
+                </div>
+                <div class="mySlides  " id="6">
+                    <!--h1>keep it tight for the air force</h1-->
+                    <img src='resources/images/IMG_4805.jpg'>
+
+                </div>
+            </div>
+            <script>
+                var slideIndex = 1;
+                
+
+                function move(n) {
+                    showDivs(slideIndex += n,n);
+                }
+                
+                function autoslide(){
+                    move(1);
+                    setTimeout(autoslide,10000);
+                }                
+
+                function showDivs(n,move) {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) {slideIndex = 1} 
+                    if (n < 1) {slideIndex = x.length} ;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none"; 
+                    }
+                    var image_src = x[slideIndex-1].children[0].src; 
+                    $.when(setBackground(image_src)).done(function(){
+                        console.log(move);
+                        if(move>0){                            
+                            $(x[slideIndex-1]).addClass('slideinleft');
+                        }else{
+
+                            $(x[slideIndex-1]).addClass('slideinright');
+                        }
+                        setTimeout(function(){
+                            $(x[slideIndex-1]).removeClass('slideinleft');
+                            $(x[slideIndex-1]).removeClass('slideinright');    
+                        },1500);
+
+                        x[slideIndex-1].style.display = "block"; 
+                    });
+
+
+                }
+
+
+
+                /*var slideIndex = 0;
+
+                carousel();
+
+                function carousel() {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none"; 
+                    }
+                    slideIndex++;
+
+                    if (slideIndex > x.length) {slideIndex = 1} 
+                    var image_src = x[slideIndex-1].children[0].src;
+
+
+
+                    setTimeout(function(){
+                        carousel();                            
+                    }, 15000); // Change image every 2 seconds
+
+                }
+                */
+
+                function setBackground(image_src){                       
+                    $('.slideshow-background').attr("src",image_src);                                             
+                }
+                
+                $(document).ready(function(){
+                    autoslide();
+                    showDivs(slideIndex);
+                })
+            </script>
+
+        </body>
+
+
+
+    </html>

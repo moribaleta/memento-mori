@@ -1,0 +1,159 @@
+<DOCTYPE! HTML>
+
+    <html>
+
+        <head>            
+            <script src="resources/js/jquery-3.2.1.min.js"></script>
+            <link rel="stylesheet" href="resources/css/slideshow.css">
+            <link rel="stylesheet" href="resources/css/slideshow_meta.css">
+            <script src="resources/js/colorthief.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+
+        <body>
+
+            <div class="slideshow-container">            
+
+                <div class="mySlides  " id="1">
+                    <!--h1>keep it real with asics gel lyte III</h1-->
+                    <img class='img' src='resources/images/wallpaper_kido2.jpg'>   
+                </div>
+
+                <div class="mySlides  " id="2">
+                    <!--h1>N9000 for the win in Diadora</h1-->
+                    <img class='img' src='resources/images/wallpaper_kido3v2.jpg'>
+                </div>
+
+                <div class="mySlides  " id="3">
+                    <!--h1>New Balance 997 brings the balance of the world</h1-->
+                    <img class='img' src='resources/images/wallpaper_kido1.jpg'> 
+
+                </div>
+                <div class="mySlides " id="4">
+                    <!--h1>keep it tight for the air force</h1-->
+                    <img class='img' src='resources/images/wallpaper_skull.png'>
+                </div>
+                <div class="mySlides  " id="5">
+                    <!--h1>keep it tight for the air force</h1-->
+                    <img class='img' src='resources/images/wallpaper_skullv2.jpg'>
+
+                </div>
+            </div>
+            <script>
+
+
+                var colorDict= [                    
+                    "rgb(67,151,206)",
+                    "rgb(253,245,241)",
+                    "rgb(26,24,26)",
+                    "rgb(255,255,255)",
+                    "rgb(9,6,8)"
+                ];
+                /*function loadcolor(){
+                    var img = document.getElementsByClassName("img");    
+                    for(var i = 0; i<img.length; i++){                        
+                        RGBaster.colors(img[i].src,{
+                            async:false,
+                            success: function(payload){
+                                 
+                                $('body','html').css('background-color',payload.dominant);                        
+                                colorDict.push(payload.dominant);
+                                console.log(payload.dominant);
+                            }
+                        });
+                    }
+                    setTimeout(function(){
+                        var color1 = colorDict[0];
+                        var color2 = colorDict[1];
+                        colorDict[0] =color2;
+                        colorDict[1] =color1;    
+                    },15000);
+
+                }*/
+
+
+                var slideIndex = 1;
+
+
+
+                function move(n) {
+                    showDivs(slideIndex += n,n);
+                }
+                var intervl;
+                function startInterval(){
+                     
+                    intervl = setInterval(function(){
+                        autoslide()
+                    },10000);
+                }
+                function autoslide(){
+                    move(1);                    
+                }                
+
+                function showDivs(n,move) {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) {slideIndex = 1} 
+                    if (n < 1) {slideIndex = x.length} ;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none"; 
+                    }                    
+                    x[slideIndex-1].style.display = "block"; 
+                    $('body','html').css('background-color',colorDict[slideIndex-1]);  
+                    console.log(colorDict[slideIndex-1]);
+                    /*var img = document.getElementsByClassName("img");    
+                    console.log(img[slideIndex-1].src);*/
+                    /*RGBaster.colors(img[slideIndex-1].src,{
+                        success: function(payload){
+                            console.log(payload.dominant);
+                            $('body','html').css('background-color',payload.dominant);                            
+                        }
+                    });*/
+                    /*var colorThief = new ColorThief();
+
+                    var color = colorThief.getColor(sourceImage);*/
+                    /*$('body','html').css('background-color',color);
+                    console.log('color');*/
+                }
+
+
+
+                /*var slideIndex = 0;
+
+                carousel();
+
+                function carousel() {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none"; 
+                    }
+                    slideIndex++;
+
+                    if (slideIndex > x.length) {slideIndex = 1} 
+                    var image_src = x[slideIndex-1].children[0].src;
+
+
+
+                    setTimeout(function(){
+                        carousel();                            
+                    }, 15000); // Change image every 2 seconds
+
+                }
+                */
+                $(document).ready(function(){
+                    //loadcolor(); 
+                    autoslide();
+                    startInterval();
+                    
+                })
+
+
+
+            </script>
+
+        </body>
+
+
+
+    </html>
