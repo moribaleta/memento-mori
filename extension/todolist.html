@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <title>todolist</title>
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/css/todolist.css">
+        <script src="resources/js/log.js"></script>
+        <script src="resources/js/vue.js"></script>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+
+    </head>
+    <body>
+        <div id="list" class="container">
+            <div id="add_todo">
+                <input type=text id="text" placeholder="add to task">
+                <button id="add_btn" class='button' v-on:click="addItem()">
+                    <img src="resources/images/ic_add_white_48px.svg">
+                </button>
+                <!--<button id="clear_btn" class="button" v-on:click="clearAll()"><img src="resources/images/ic_close_white_48px.svg"></button>-->
+            </div>
+            <div id="list_item" class="container" >
+                <ul>
+                    <li v-for="(item, index) in items">
+                        <div class='item row'>
+                            <button id='btn_done' class="button col-xs-4"  v-on:click.prevent="done(index)">                     <img src="resources/images/ic_done_white_48px.svg">           
+                            </button>
+                            <div v-if="!item.done" class='message col-xs-8 nostrike' v-bind:id="index" >{{item.message}}</div>
+                            <div v-else class='message col-xs-8 strike' v-bind:id="index" >{{item.message}}</div>
+                            <button id='btn_remove' class="button" v-on:click.prevent="remove(index)">             <img src="resources/images/ic_close_white_48px.svg">                   
+                            </button>
+                        </div>
+
+                    </li>
+                </ul>    
+            </div>
+        </div>
+
+        <script>
+
+
+            var list = new Vue({
+                el: '#list',
+                data:{
+                    items:[],
+                },
+                methods:{
+                    init: function(){
+                        this.items = getItemStorage();           
+                    },
+                    done: function(i){
+                                                
+                        
+                        if(this.items[i].done){
+                            this.items[i].done = false;
+                        }else{
+                            this.items[i].done = true;
+                        }
+                        
+                        updateStorage(this.items);
+                        //addItemStorage(this.items[i]);
+                        /*
+                        if($('#'+i).hasClass('strike')){
+                            $('#'+i).removeClass('strike');     
+                        }else{
+                            $('#'+i).addClass('strike');     
+                        }                       
+                        console.log(i);
+                        */
+                    },
+                    addItem: function(){
+                        //array.push(this.items,{this.message: 'item'+this.counter++});
+
+                        var text = document.getElementById('text');
+                        var text_value = text.value;
+                        if(text_value){
+
+                            text.value = null;
+                            var item = {message:text_value, done:false};    
+                            if(!exist(this.items,item)){
+                                this.items.push(item);     
+                                updateStorage(this.items);
+                                //addItemStorage(item);
+                            }else{
+                                alert('already in list');
+                            }
+
+                        }
+                    },                              
+                    remove: function(i){
+                        //removeItemStorage(this.items[i]);
+                        this.$delete(this.items, i);               
+                        updateStorage(this.items);
+                    },    
+                    clearAll: function(){
+                        this.items = [];
+                        clearStorage();
+                    }
+                }                
+            });
+            
+            $(document).ready(function(){
+                list.init();
+            });
+
+            
+
+            function exist(arr,item){
+                if(arr){
+                    for(var i = 0; i<arr.length; i++)  {
+                        if(item.message == arr[i].message ){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            function updateStorage(item){
+                item = JSON.stringify(item);
+                localStorage.setItem('todo-list',item);                
+            }
+
+            function removeItemStorage(item){          
+                /*localStorage.removeItem(item.key);
+                log_v("removeItemStorage(item)","removed key: "+item.key);
+                */
+            }
+            function addItemStorage(item){
+                /*var value = item.message +","+item.done;
+                localStorage.setItem(item.key,value);  
+                log_v("addItemStorage(item)","added key: "+item.key+" value: "+value);
+                */
+            }
+
+            function getItemStorage(){
+                var items = localStorage.getItem('todo-list');
+                items = JSON.parse(items);
+                if(items!=null)
+                    return items;
+                else{
+                    items = [];
+                    return items;
+                }
+                /*var items = [];
+                for(var i in localStorage){
+                    try{
+                    var key= localStorage.key(i);
+                    var value = localStorage[key];   
+                    log_v("getItemStorage","value: "+value);
+                    value = value.split(",");
+                    var bool = false;
+                    if(value[1] == 'true'){
+                        bool = true;
+                    }
+                    value = {id:key,message:value[0], done:bool};
+                    items.push(value);
+                    count_id = key;
+                    console.log("object %o",value);
+                    }catch(err){
+                        console.log(err.message);
+                    }
+                }
+                count_id++;  
+                log_v("getItemStorage()",count_id);
+                return items;
+                */
+            }
+
+            function clearStorage(){
+                localStorage.clear();
+            }
+
+
+
+        </script>    
+    </body>
+
+</html>

@@ -1,6 +1,12 @@
+@import "animation.css";
+@import url(animation.css);
+
 body{
     margin: 0;
     overflow: hidden;   
+}
+.background{
+    height: 100%;
 }
 iframe{
     border: none;
@@ -17,7 +23,7 @@ iframe{
     background: rgba(0,0,0,0.3);
     color: white;
     border-width: 0 0 0 0;
-    border-radius: 7px;
+    border-radius: 2px;
     font-size: 24px;
     padding: 2px 4px;
     cursor: pointer;
@@ -44,16 +50,16 @@ button:hover{
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: white;
+    color: white;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: white;
+    color: white;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: white;
+    color: white;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: white;
+    color: white;
 }
 
 .search .form #text{
@@ -117,24 +123,35 @@ button:hover{
     animation: fadeout .5s;
 }
 
-
-@keyframes fadein{
-    0%{
-        opacity: 0;
-    }
-    50%{
-        opacity: 1;
-    }    
+/*hamburger menu*/
+.hamburger{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transition: all .3s ease-in-out;
 }
 
-@keyframes fadeout{
-    0%{
-        opacity: 1;
-    }
-    50%{
-        opacity: 0;
-    }    
+/*panel*/
+.panel{
+    box-shadow: -10px 0px 10px rgba(0,0,0,0.1);
+    /*padding-top: 50px;*/
+    display: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    background: rgba(0,0,0,0.5);
 }
 
-
+.panel .todo-title{
+    height: 50px;
+    vertical-align: middle;
+    padding: 8px 14px 0px;    
+    font-family: sans-serif;
+    color: white;
+    font-size: 30px;
+    animation: fadeinright .8s;
+}
 

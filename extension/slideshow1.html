@@ -101,46 +101,8 @@
                     x[slideIndex-1].style.display = "block"; 
                     $('body','html').css('background-color',colorDict[slideIndex-1]);  
                     console.log(colorDict[slideIndex-1]);
-                    /*var img = document.getElementsByClassName("img");    
-                    console.log(img[slideIndex-1].src);*/
-                    /*RGBaster.colors(img[slideIndex-1].src,{
-                        success: function(payload){
-                            console.log(payload.dominant);
-                            $('body','html').css('background-color',payload.dominant);                            
-                        }
-                    });*/
-                    /*var colorThief = new ColorThief();
-
-                    var color = colorThief.getColor(sourceImage);*/
-                    /*$('body','html').css('background-color',color);
-                    console.log('color');*/
                 }
 
-
-
-                /*var slideIndex = 0;
-
-                carousel();
-
-                function carousel() {
-                    var i;
-                    var x = document.getElementsByClassName("mySlides");
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none"; 
-                    }
-                    slideIndex++;
-
-                    if (slideIndex > x.length) {slideIndex = 1} 
-                    var image_src = x[slideIndex-1].children[0].src;
-
-
-
-                    setTimeout(function(){
-                        carousel();                            
-                    }, 15000); // Change image every 2 seconds
-
-                }
-                */
                 $(document).ready(function(){
                     //loadcolor(); 
                     autoslide();

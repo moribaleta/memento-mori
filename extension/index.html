@@ -2,6 +2,8 @@
     <head>
         <title>memnto.mori</title>
         <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="stylesheet" href="resources/css/hamburger.css">
+        
         <script src="resources/js/jquery-3.2.1.min.js"></script>
     </head>
     <body>    
@@ -15,22 +17,6 @@
         </div>
 
         <div class="search">
-            <!--<form method="get" action="http://www.google.com/search">
-
-<table border="0" cellpadding="0">
-<tr>
-<td>
-<input type="text"  id="text" name="q" size="25" maxlength="255" value="" placeholder="Google search" />
-<br>
-<input type="submit" id="button" value="Search" />
-</td>
-</tr>
-<tr>
-
-</tr>
-</table>                
-
-</form>-->
             <div class='form'>
                 <input type="text" id="text" name="q" placeholder="Google search" 
                        autofocus />
@@ -43,8 +29,15 @@
                 <div class="time_value">
 
                 </div>
-
-
+            </div>
+            <div class="hamburger hamburger--collapse js-hamburger">
+                <div class="hamburger-box" >
+                    <div class="hamburger-inner"></div>
+                </div>
+            </div>
+            <div class='panel'>
+                <div class="todo-title">To do</div>
+                <iframe id="todolist" width="100%" height="100%" src="todolist.html"></iframe>
             </div>
         </div>
         <script>
@@ -131,6 +124,21 @@
                     return true;
                 }
             }
+            
+            /*hamburger*/
+            $('.hamburger').on("click",function(){
+                this.classList.toggle("is-active");
+                if($('.panel').css("display")=='block'){
+                    setTimeout(function(){
+                        $('.panel').css("display","none");    
+                    },300);
+                    $('.panel').css("animation",'fadeoutright .55s');                    
+                }else{
+                    $('.panel').css("animation",'fadeinright .3s');   
+                    $('.panel').css("display","block");
+                    
+                }
+            });            
         </script>
     </body>
 </html>
