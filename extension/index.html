@@ -1,14 +1,21 @@
 <html>
     <head>
         <title>memnto.mori</title>
+        <link rel="stylesheet" href="resources/css/loading.css">
         <link rel="stylesheet" href="resources/css/style.css">
         <link rel="stylesheet" href="resources/css/hamburger.css">
-        
+        <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
         <script src="resources/js/jquery-3.2.1.min.js"></script>
     </head>
-    <body>    
+    <body> 
+        <div class="cover">
+           <img class=gif data-mode="video" src="resources/images/logo.gif">
+            <!--<span class="cssload-loader">
+            <span class="cssload-loader-inner"></span>
+            </span>-->
+        </div>
         <div class="background">
-            <iframe src="slideshow1.html" height="100%" width="100%"></iframe>
+            <iframe id='iframe_background' src="slideshow1.html" height="100%" width="100%"></iframe>
         </div>
         <div class="button_div">
             <button id="button" onclick='toggle()'>
@@ -41,20 +48,31 @@
             </div>
         </div>
         <script>
+            
+            /*$(window).on('load',function(){
+               $('.cover').hide();
+            });*/
+            $('#iframe_background').on('load',function(){
+                $('.cover').css('animation','fadeout 1s');
+                setTimeout(function(){
+                    $('.cover').hide();    
+                },500);
+                
+            });
+            
             var open_close = true;
             var button = document.getElementById('button_ic');
             var button_bg = document.getElementById('button');
             var text_input = document.getElementById('text');
+            
             function toggle(){
                 if(open_close){
                     $('.search').addClass('show');
-                    $('.background').css('filter','blur(10px)');
-                    open_close = false;   
-                    button.src="resources/images/ic_close_white_48px.svg";
+                    $('.background').css('filter','blur(10px)');                    
+                    open_close = false;   button.src="resources/images/ic_close_white_48px.svg";
                     $(button_bg).css('background','rgba(0,0,0,0)');
                     $('#text').focus();
-                }else{
-
+                }else{     
                     text_input.value = "";
                     $('.search').addClass('close');
                     $('.background').css('filter','blur(0px)');
