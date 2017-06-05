@@ -172,7 +172,6 @@
                 id=524901&APPID="+weather_api_key;*/
                 $.ajax({
                     url: url_path,
-                    async:false,
                     success: function(response){
                         var data = response;
                         console.log('object %o',data);
