@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>signup</title>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div class="login">
+            <form id="signup" method="post" action="signup.php">
+                <table>
+                    <tr>
+                        <td>
+                            <input pattern=".{5,10}" required title="5 to 10 characters" id="email" placeholder='email' type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input pattern=".{5,10}" required title="5 to 10 characters" id="lastname" placeholder='lastname' type="text">
+                        </td>
+                        <td>
+                            <input pattern=".{5,10}" required title="5 to 10 characters" id="firstname" placeholder='firstname' type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input pattern=".{5,10}" required title="5 to 10 characters" id="password" placeholder='password' type="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="conf_password" placeholder='confirm password' type="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="signup">
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        <script>
+
+
+            $('#signup').submit(function(ev) {
+                ev.preventDefault(); // to stop the form from submitting
+                /* Validations go here */
+                if($('#password').val()===$('#conf_password').val()){
+                    alert("login");
+                }else{
+                    alert("password doesnt match");
+                }
+                //this.submit(); // If all the validations succeeded
+            });
+
+        </script>
+    </body>
+</html>

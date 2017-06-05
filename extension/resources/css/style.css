@@ -28,10 +28,9 @@ iframe{
 }
 
 .button_div{
-    width: 100%;    
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    z-index: 200;
+    z-index: 2;
     text-align: left;
     transition: all .3s ease-in-out;
 }
@@ -45,14 +44,11 @@ iframe{
     padding: 2px 4px;
     cursor: pointer;
     transition: all .5s ease-in-out;
-
 }
 
 
-
 .search{
-    position: fixed;
-    z-index: 100;
+    position: absolute;
     bottom: 0;
     width: 100%; 
     height: 100%;
@@ -86,7 +82,7 @@ iframe{
     border-width: 0 2px 0 0;    
     border-color: rgba(255,255,255,0.5);
     /*color: white;*/
-    transition: all .3s ease-in-out;  z-index: 1000;
+    transition: all .3s ease-in-out;
     font-size: 24px;
     margin-top: 20%;
     width: 170px;
@@ -97,7 +93,6 @@ iframe{
 
 .search .time{
     margin-top: 10px;
-    z-index: 100;
     font-size: 18px;
     color: white;
     width: 100%;
@@ -138,13 +133,26 @@ iframe{
 .close{    
     animation: fadeout .5s;
 }
+/*weather*/
+.weather{
+
+}
+
+.weather .location #location_detail{
+    font-size: 14px;
+}
+
+.weather .forecast #forecast_detail{
+    font-size: 16px;
+}
+
 
 /*hamburger menu*/
 .hamburger{
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 4;
     transition: all .3s ease-in-out;
 }
 
@@ -158,16 +166,39 @@ iframe{
     top: 0;
     right: 0;
     width: 300px;
+    z-index: 3;
     background: rgba(0,0,0,0.5);
 }
 
 .panel .todo-title{
-    height: 50px;
+    min-height: 50px;
     vertical-align: middle;
     padding: 8px 14px 0px;    
     font-family: sans-serif;
     color: white;
     font-size: 30px;
     animation: fadeinright .8s;
+}
+.panel #todolist{
+    height: 100%;
+}
+
+.footer-panel{
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.footer-panel a{
+    width: 100%;
+    display: inline-block;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+    color: #EC2669;
 }
 

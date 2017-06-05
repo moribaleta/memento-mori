@@ -5,14 +5,15 @@
         <link rel="stylesheet" href="resources/css/style.css">
         <link rel="stylesheet" href="resources/css/hamburger.css">
         <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="resources/js/jquery-3.2.1.min.js"></script>
     </head>
     <body> 
         <div class="cover">
-           <img class=gif data-mode="video" src="resources/images/logo.gif">
+            <img class=gif data-mode="video" src="resources/images/logo.gif" >
             <!--<span class="cssload-loader">
-            <span class="cssload-loader-inner"></span>
-            </span>-->
+<span class="cssload-loader-inner"></span>
+</span>-->
         </div>
         <div class="background">
             <iframe id='iframe_background' src="slideshow1.html" height="100%" width="100%"></iframe>
@@ -31,10 +32,16 @@
             </div>
             <div class=time>
                 <div class="date">
-
                 </div>
                 <div class="time_value">
-
+                </div>
+                <div class="weather">
+                    <div class="location">
+                        <span id="location_detail"></span>
+                    </div>
+                    <div class="forecast">weather:
+                        <span id="forecast_detail"></span>
+                    </div>
                 </div>
             </div>
             <div class="hamburger hamburger--collapse js-hamburger">
@@ -45,26 +52,32 @@
             <div class='panel'>
                 <div class="todo-title">To do</div>
                 <iframe id="todolist" width="100%" height="100%" src="todolist.html"></iframe>
+                <!--<div class="footer-panel"><a  href="resources/login.html">login</a>
+                </div>-->
             </div>
         </div>
         <script>
-            
+
             /*$(window).on('load',function(){
                $('.cover').hide();
             });*/
+
+
+
             $('#iframe_background').on('load',function(){
-                $('.cover').css('animation','fadeout 1s');
                 setTimeout(function(){
-                    $('.cover').hide();    
-                },500);
-                
+                    $('.cover').css('animation','fadeout 1s');
+                    setTimeout(function(){
+                        $('.cover').hide();
+                    },500);
+                },1000);
             });
-            
+
             var open_close = true;
             var button = document.getElementById('button_ic');
             var button_bg = document.getElementById('button');
             var text_input = document.getElementById('text');
-            
+
             function toggle(){
                 if(open_close){
                     $('.search').addClass('show');
@@ -116,6 +129,61 @@
             }
             getTime();
 
+            var loc_detail =document.getElementById('location_detail');
+            function getLocation() {
+                if (navigator.geolocation) {                 navigator.geolocation.getCurrentPosition(showPosition);
+                                           } else {
+                                               alert("Geolocation is not supported by this browser.");
+                                           }
+            }
+
+
+            function showPosition(position) {
+
+                //$('#location_detail').textContent = position;
+                var lat = position.coords.latitude;
+                var long =position.coords.longitude;
+               loc_detail.textContent = lat +" , "+ long;
+                getWeather(lat,long);
+                getMapPosition(lat,long);
+            }
+
+            function getMapPosition(lat,long){
+                var url_path = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&sensor=false";
+                $.ajax({
+                    url: url_path,
+                    success: function(response){
+                        console.log('object %o',response);
+                        loc_detail.textContent = response.results[0].formatted_address;
+                    }
+                })
+            }
+
+            getLocation();
+
+            var weather_api_key = "b5a6920083fa28da23d7d2cc4c885820";
+            var forecast_detail = document.getElementById('forecast_detail');
+
+            function getWeather(lat,long){
+                var url_path = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID=b5a6920083fa28da23d7d2cc4c885820";
+               // window.open(url_path,"_blank");
+               /* var url_path = "api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID="+weather_api_key;*/
+                /*"api.openweathermap.org/data/2.5/forecast?
+                id=524901&APPID="+weather_api_key;*/
+                $.ajax({
+                    url: url_path,
+                    async:false,
+                    success: function(response){
+                        var data = response;
+                        console.log('object %o',data);
+                        var weather = data.weather[0].description;
+                        forecast_detail.innerHTML = weather;
+                        //console.log('object %o',data);
+                    }
+                })
+            }
+
+
 
             function submit(){
                 var value = document.getElementById('text').value;
@@ -142,7 +210,7 @@
                     return true;
                 }
             }
-            
+
             /*hamburger*/
             $('.hamburger').on("click",function(){
                 this.classList.toggle("is-active");
@@ -154,9 +222,11 @@
                 }else{
                     $('.panel').css("animation",'fadeinright .3s');   
                     $('.panel').css("display","block");
-                    
+
                 }
             });            
         </script>
+         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM&libraries=places&callback=getLocation"
+                async defer></script>
     </body>
 </html>
