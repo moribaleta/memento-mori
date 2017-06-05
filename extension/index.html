@@ -149,7 +149,7 @@
             }
 
             function getMapPosition(lat,long){
-                var url_path = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&sensor=false";
+                var url_path = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&sensor=false";
                 $.ajax({
                     url: url_path,
                     success: function(response){
@@ -165,7 +165,7 @@
             var forecast_detail = document.getElementById('forecast_detail');
 
             function getWeather(lat,long){
-                var url_path = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID=b5a6920083fa28da23d7d2cc4c885820";
+                var url_path = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID=b5a6920083fa28da23d7d2cc4c885820";
                // window.open(url_path,"_blank");
                /* var url_path = "api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID="+weather_api_key;*/
                 /*"api.openweathermap.org/data/2.5/forecast?
