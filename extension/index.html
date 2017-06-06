@@ -3,6 +3,7 @@
         <title>memnto.mori</title>
         <link rel="stylesheet" href="resources/css/loading.css">
         <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="stylesheet" href="resources/css/style_responsive.css">
         <link rel="stylesheet" href="resources/css/hamburger.css">
         <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,13 +36,14 @@
                 </div>
                 <div class="time_value">
                 </div>
-                <div class="weather">
-                    <div class="location">
-                        <span id="location_detail"></span>
-                    </div>
-                    <div class="forecast">weather:
-                        <span id="forecast_detail"></span>
-                    </div>
+
+            </div>
+            <div class="weather">
+                <div class="location">
+                    <span id="location_detail"></span>
+                </div>
+                <div class="forecast">
+                    <span id="forecast_detail"></span>
                 </div>
             </div>
             <div class="hamburger hamburger--collapse js-hamburger">
@@ -52,8 +54,10 @@
             <div class='panel'>
                 <div class="todo-title">To do</div>
                 <iframe id="todolist" width="100%" height="100%" src="todolist.html"></iframe>
+                <iframe id="calendar" width="100%" height="100%"
+                src="calendar.html"></iframe>
                 <!--<div class="footer-panel"><a  href="resources/login.html">login</a>
-                </div>-->
+</div>-->
             </div>
         </div>
         <script>
@@ -143,8 +147,9 @@
                 //$('#location_detail').textContent = position;
                 var lat = position.coords.latitude;
                 var long =position.coords.longitude;
-               loc_detail.textContent = lat +" , "+ long;
-                getWeather(lat,long);
+                loc_detail.textContent = lat +" , "+ long;
+                //getWeather(lat,long);
+                getLocationKey(lat,long);
                 getMapPosition(lat,long);
             }
 
@@ -160,16 +165,47 @@
             }
 
             getLocation();
-
+            
+            setInterval(getLocation(),3600000);
+            
             var weather_api_key = "b5a6920083fa28da23d7d2cc4c885820";
             var forecast_detail = document.getElementById('forecast_detail');
+            /*for accuweather*/
+            function getLocationKey(lat,long){
+                var url_path = "https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=o7xp01zqGF9AqsnBF5BfwDgnsJoQmcKG&q="+lat+"%2C"+long;
+                $.ajax({
+                    url: url_path,
+                    success: function(response){
+                        console.log('loc key %o',response);
+                        var key = response.Key;
+                        getWeather(key);
+                    }
+                })
 
-            function getWeather(lat,long){
-                var url_path = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID=b5a6920083fa28da23d7d2cc4c885820";
-               // window.open(url_path,"_blank");
-               /* var url_path = "api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID="+weather_api_key;*/
-                /*"api.openweathermap.org/data/2.5/forecast?
-                id=524901&APPID="+weather_api_key;*/
+            }
+
+            function getWeather(key){
+                var url_path = "https://dataservice.accuweather.com/forecasts/v1/daily/1day/"+key+"?apikey=o7xp01zqGF9AqsnBF5BfwDgnsJoQmcKG";
+
+                $.ajax({
+                    url: url_path,
+                    success: function(response){
+                        /*var weather = response.Headline.Text;
+                        weather += "<br>" + response.Headline.Category;
+                        */
+                        var weather = "weather: <span class='desktop'>"+response.Headline.Text+"</span>";
+                        weather += "<span class='mobile'>"+response.Headline.Category+"</span>";
+                        
+                        forecast_detail.innerHTML = weather;
+                    }
+                })
+
+            }
+
+
+            /*for openweathermap*/
+            /*function getWeather(lat,long){
+                var url_path = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&APPID=b5a6920083fa28da23d7d2cc4c885820";
                 $.ajax({
                     url: url_path,
                     success: function(response){
@@ -180,7 +216,7 @@
                         //console.log('object %o',data);
                     }
                 })
-            }
+            }*/
 
 
 
@@ -217,15 +253,24 @@
                     setTimeout(function(){
                         $('.panel').css("display","none");    
                     },300);
-                    $('.panel').css("animation",'fadeoutright .55s');                    
+                    $('.panel').css("animation",'fadeoutright .55s');         
+                    $('.weather').show();
+                    $('.weather').css("animation",'fadeinright 1s');
+                    
+                    
                 }else{
                     $('.panel').css("animation",'fadeinright .3s');   
                     $('.panel').css("display","block");
+                    setTimeout(function(){
+                        $('.weather').hide();    
+                    },500);
+                    $('.weather').css("animation",'fadeoutright 1s');
+                    
 
                 }
             });            
         </script>
-         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM&libraries=places&callback=getLocation"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM&libraries=places&callback=getLocation"
                 async defer></script>
     </body>
 </html>
