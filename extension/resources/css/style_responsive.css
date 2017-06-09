@@ -16,14 +16,19 @@
 
 }
 
-@media screen and (max-height: 480px){
+@media screen and (max-height: 500px){
+    .panel{
+        overflow: hidden;
+    }
 
     .panel #todolist{
-        height:40%;
-    }
+        height: 38%;
 
+    }
     .panel #calendar{
-        height: 50%;
+        overflow: hidden;
+        position: absolute;
+        bottom: 0;
     }
-
 }
+

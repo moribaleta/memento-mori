@@ -193,7 +193,15 @@ iframe{
 }
 
 .panel #calendar{
-    height: 50%;
+    height: 35%;
+}
+
+.panel #upload{
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    height: 30px;
+    overflow-y: hidden;
 }
 
 .footer-panel{

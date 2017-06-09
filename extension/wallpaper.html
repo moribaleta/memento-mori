@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/js/vue.js"></script>
+        <link rel="stylesheet" href="resources/css/wallpaper.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container" id="content">
+
+                <div v-for='(item,index) in items' >
+                    <div class="images-container">
+                        <button id='btn_done' class="button col-xs-4"  v-on:click.prevent="remove(index)">                     <img src="resources/images/ic_close_white_48px.svg">
+                        </button>
+                        <img class='img desktop' v-bind:src="item.desktop">
+                    </div>
+                </div>
+
+        </div>
+        <script>
+            var gallery = new Vue({
+                el: '#content' ,
+                data:{
+                    items:[],
+                },
+                methods:{
+                    init: function(){
+                        this.items = getItemStorage();
+                    },
+                    remove: function(i){
+                        this.items.splice(i,1);
+                        updateStorage(this.items);
+                    }
+
+                }
+            });
+
+            gallery.init();
+            function getItemStorage(){
+                var item = localStorage.getItem('wallpapers'); item = JSON.parse(item);
+                //console.log(item);
+                return item;
+            }
+
+            function updateStorage(items){
+                items = JSON.stringify(items);
+                localStorage.setItem('wallpapers',items);
+            }
+            function reload(){
+                console.log('reloaded');
+                gallery.init();
+            }
+        </script>
+    </body>
+</html>

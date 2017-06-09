@@ -1,0 +1,158 @@
+<DOCTYPE! HTML>
+
+    <html>
+
+        <head>
+            <script src="resources/js/jquery-3.2.1.min.js"></script>
+            <script src="resources/js/vue.js"></script>
+            <link rel="stylesheet" href="resources/css/slideshow.css">
+            <link rel="stylesheet" href="resources/css/slideshow_meta.css">
+            <script src="resources/js/colorthief.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+
+        <body>
+            <div id="content">
+                <div v-if="local">
+                    <div class="slideshow-container" id="slideshow-container"   v-for="(item, index) in items">
+                        <div class="mySlides" v-bind:id="index+1" >
+                            <img class='img desktop' v-bind:src="item.desktop">
+                            <img class='img  mobile' v-bind:src = "item.mobile">
+                        </div>
+
+                    </div>
+                </div>
+                <div v-else>
+
+                    <div class="slideshow-container">
+
+                        <div class="mySlides  " id="1">
+                            <!--h1>keep it real with asics gel lyte III</h1-->
+                            <img class='img desktop' src='resources/images/wallpaper_kido2.jpg'>
+                            <img class='img  mobile' src='resources/images/wallpaper_kido2_mobile.jpg'>
+                        </div>
+
+                        <div class="mySlides  " id="2">
+                            <!--h1>N9000 for the win in Diadora</h1-->
+                            <img class='img desktop' src='resources/images/wallpaper_kido3v2.jpg'>
+                            <img class='img  mobile' src='resources/images/wallpaper_kido3v2_mobile.jpg'>
+                        </div>
+
+                        <div class="mySlides  " id="3">
+                            <!--h1>New Balance 997 brings the balance of the world</h1-->
+                            <img class='img desktop' src='resources/images/wallpaper_kido1.jpg'>
+                            <img class='img  mobile' src='resources/images/wallpaper_kido1_mobile.jpg'>
+
+                        </div>
+                        <div class="mySlides " id="4">
+                            <!--h1>keep it tight for the air force</h1-->
+                            <img class='img desktop' src='resources/images/wallpaper_skull.png'>
+                            <img class='img  mobile' src='resources/images/wallpaper_skull_mobile.jpg'>
+                        </div>
+                        <div class="mySlides  " id="5">
+                            <!--h1>keep it tight for the air force</h1-->
+                            <img class='img desktop' src='resources/images/wallpaper_skullv2.jpg'>
+                            <img class='img mobile' src='resources/images/wallpaper_skullv2_mobile.jpg'>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+
+                var slideshow = new Vue({
+                    el: '#content',
+                    data:{
+                        items:[],
+                        local: false
+                    },
+                    methods:{
+
+                        init: function(){
+                            this.items = getItemStorage();       if(this.items.length>0){
+                                this.local= true;
+                            }
+                            console.log(this.items.length);
+                        },
+
+                    }
+                });
+
+                slideshow.init();
+                function getItemStorage(){
+                    var item = localStorage.getItem('wallpapers'); item = JSON.parse(item);
+                    //console.log(item);
+                    return item;
+                }
+
+
+
+                /*function loadcolor(){
+                    var img = document.getElementsByClassName("img");
+                    for(var i = 0; i<img.length; i++){
+                        RGBaster.colors(img[i].src,{
+                            async:false,
+                            success: function(payload){
+
+                                $('body','html').css('background-color',payload.dominant);
+                                colorDict.push(payload.dominant);
+                                console.log(payload.dominant);
+                            }
+                        });
+                    }
+                    setTimeout(function(){
+                        var color1 = colorDict[0];
+                        var color2 = colorDict[1];
+                        colorDict[0] =color2;
+                        colorDict[1] =color1;
+                    },15000);
+
+                }*/
+
+
+                var slideIndex = 1;
+
+
+
+                function move(n) {
+                    showDivs(slideIndex += n,n);
+                }
+                var intervl;
+                function startInterval(){
+
+                    intervl = setInterval(function(){
+                        autoslide()
+                    },10000);
+                }
+                function autoslide(){
+                    move(1);
+                }
+
+                function showDivs(n,move) {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    if (n > x.length) {slideIndex = 1}
+                    if (n < 1) {slideIndex = x.length} ;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    x[slideIndex-1].style.display = "block";
+                }
+
+                $(document).ready(function(){
+                    //loadcolor();
+                    autoslide();
+                    startInterval();
+
+                })
+
+
+
+
+            </script>
+
+        </body>
+
+
+
+    </html>
