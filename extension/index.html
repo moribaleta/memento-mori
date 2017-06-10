@@ -1,13 +1,16 @@
 <html>
     <head>
         <title>memnto.mori</title>
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css">
         <link rel="stylesheet" href="resources/css/loading.css">
         <link rel="stylesheet" href="resources/css/style.css">
         <link rel="stylesheet" href="resources/css/style_responsive.css">
         <link rel="stylesheet" href="resources/css/hamburger.css">
         <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
     </head>
     <body> 
         <div class="cover">
@@ -18,6 +21,7 @@
         </div>
         <div class="background">
             <iframe id='iframe_background' src="slideshow_vue.html" height="100%" width="100%"></iframe>
+
         </div>
         <div class="button_div">
             <button id="button" onclick='toggle()'>
@@ -44,6 +48,7 @@
                 </div>
                 <div class="forecast">
                     <span id="forecast_detail"></span>
+                    <p id="quote"></p>
                 </div>
             </div>
             <div class="hamburger hamburger--collapse js-hamburger">
@@ -52,12 +57,32 @@
                 </div>
             </div>
             <div class='panel'>
-                <div class="todo-title">To do</div>
-                <iframe id="todolist" width="100%" height="100%" src="todolist.html"></iframe>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#todo">todo</a></li>
+                    <li><a data-toggle="tab" href="#news">news</a></li>
+                    <li><a data-toggle="tab" href="#wallpaper">wallpaper</a></li>
+                </ul>
 
-                <iframe id="calendar" width="100%" height="100%"
-                src="wallpaper.html"></iframe>
-                <iframe id="upload" width="100%" height="50px" src="upload.html"></iframe>
+                <div class="tab-content">
+                    <div id="todo" class="tab-pane fade in active">
+                        <iframe id="todo_frame" width="100%" height="100%" src="todolist.html"></iframe>
+                    </div>
+                    <div id="news" class="tab-pane fade">
+
+                    </div>
+                    <div id="wallpaper" class="tab-pane fade">
+                        <iframe id="wallpaper_frame" width="100%" height="100%" src="wallpaper.html"></iframe>
+                        <iframe id="upload" width="100%" height="50px" src="upload.html"></iframe>
+                    </div>
+                </div>
+                <!--
+
+<div class="todo-title">To do</div>
+<iframe id="todolist" width="100%" height="100%" src="todolist.html"></iframe>
+
+<iframe id="calendar" width="100%" height="100%"
+src="wallpaper.html"></iframe>
+<iframe id="upload" width="100%" height="50px" src="upload.html"></iframe>-->
                 <!--<div class="footer-panel"><a  href="resources/login.html">login</a>
 </div>-->
             </div>
@@ -167,9 +192,9 @@
             }
 
             getLocation();
-            
+
             setInterval(getLocation(),3600000);
-            
+
             var weather_api_key = "b5a6920083fa28da23d7d2cc4c885820";
             var forecast_detail = document.getElementById('forecast_detail');
             /*for accuweather*/
@@ -197,7 +222,7 @@
                         */
                         var weather = "weather: <span class='desktop'>"+response.Headline.Text+"</span>";
                         weather += "<span class='mobile'>"+response.Headline.Category+"</span>";
-                        
+
                         forecast_detail.innerHTML = weather;
                     }
                 })
@@ -249,9 +274,39 @@
             }
 
             function reloadWallpaper(){
-                document.getElementById('calendar').contentWindow.location.reload();
+                document.getElementById('wallpaper_frame').contentWindow.location.reload();
                 document.getElementById('iframe_background').contentWindow.location.reload();
             }
+
+            function getQuote(){
+                /*$.ajax({
+                    url: "https://talaikis.com/api/quotes/random/",
+                    success: function(result){
+                        var quote = "<q>"+result.quote+"</q>";
+                        quote += "<br>" +result.author; document.getElementById('quote').innerHTML= quote;
+                        console.log(result.quote);
+                    }
+                })*/
+
+              /*  $.ajax({
+                    url: "http://www.quotzzy.co/api/quote",
+                    success: function(result){
+                        var quote = "<q>"+result.text+"</q>";
+                        quote += "<br> - " +result.author['name']; document.getElementById('quote').innerHTML= quote;
+                        console.log(result.quote);
+                    }
+                })*/
+                $.ajax({
+                    url: "https://www.quotesondesign.com/wp-json/posts?",
+                    success: function(result){                        
+                        var quote = result[0].content;                        
+                        quote += "- " +result[0].title; document.getElementById('quote').innerHTML= quote;
+                        console.log(result.quote);
+                    }
+                })
+            }
+
+            getQuote();
 
             /*hamburger*/
             $('.hamburger').on("click",function(){
@@ -263,8 +318,8 @@
                     $('.panel').css("animation",'fadeoutright .55s');         
                     $('.weather').show();
                     $('.weather').css("animation",'fadeinright 1s');
-                    
-                    
+
+
                 }else{
                     $('.panel').css("animation",'fadeinright .3s');   
                     $('.panel').css("display","block");
@@ -272,7 +327,7 @@
                         $('.weather').hide();    
                     },500);
                     $('.weather').css("animation",'fadeoutright 1s');
-                    
+
 
                 }
             });            

@@ -1,12 +1,9 @@
 @import "animation.css";
 @import url(animation.css);
 body{
-    border-style: solid;
-    border-width: 1px 0 0;
     padding-top: 10px;
     overflow-x: hidden;
     background: none;
-    background: rgba(0,0,0,0.5);
 }
 /*button layout*/
 img{
