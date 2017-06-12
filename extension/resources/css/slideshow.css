@@ -1,3 +1,4 @@
+@import url(animation.css);
 body{
     margin: 0;
     background-color:black;    
@@ -20,6 +21,33 @@ body{
     width: 100%;
     transition: all .2s ease-in-out;
 }  
+
+.desc{
+    padding: 10px;
+    z-index: 100;
+    position: fixed;
+    color: white;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    font-family: sans-serif;
+}
+.desc .link{
+    color: white;
+    text-decoration: none;
+}
+.desc:hover .link{
+    display: block;
+    animation: fadein 2s;
+}
+
+.desc:hover .creator{
+    animation: up2 1s;
+}
+
+.link{
+    display: none;
+}
 
 /*from left to right*/
 @keyframes slideinright{

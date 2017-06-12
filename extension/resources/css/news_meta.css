@@ -1,0 +1,25 @@
+@media screen and (max-width: 350px){
+
+    #content .tile{
+        width: 270px;
+        height: 160px;
+    }
+
+    .tile .desc{
+        width: 240px;
+        height: 160px;
+        font-family: sans-serif;
+    }
+
+    .tile .desc .title{
+        font-size: 14px;
+    }
+
+    .tile .desc .description{
+        font-size: 12px;
+    }
+    .tile img{
+        width: 270px;
+        height: 160px;
+    }
+}

@@ -45,3 +45,46 @@
         transform: translateX(100%);
     }
 }
+
+@keyframes up{
+    0%{
+        opacity: 0;
+        transform: translateY(350%);
+    }
+    50%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@keyframes down{
+    0%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    50%{
+        opacity: 0;
+        transform: translateY(350%);
+    }
+}
+
+@keyframes up2{
+    0%{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    50%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes down2{
+    0%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    50%{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}

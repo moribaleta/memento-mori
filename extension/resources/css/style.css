@@ -174,26 +174,22 @@ iframe{
     position: absolute;
     top: 0;
     right: 0;
-    width: 300px;
+    width: 400px;
     z-index: 3;
     background: rgba(0,0,0,0.5);
+    border-radius: 0;
 }
 
-.panel .todo-title{
-    min-height: 50px;
-    vertical-align: middle;
-    padding: 8px 14px 0px;    
-    font-family: sans-serif;
-    color: white;
-    font-size: 30px;
-    animation: fadeinright .8s;
-}
 .panel #todolist{
     height: 50%;
 }
 
 .panel #calendar{
     height: 35%;
+}
+
+.panel #news_frame{
+    height: 90%;
 }
 
 .panel #upload{
@@ -244,4 +240,8 @@ iframe{
 
 .nav-tabs {
     border-bottom: 1px solid rgba(0,0,0,0);
+}
+
+.tab-content{
+    margin-top: 16px;
 }

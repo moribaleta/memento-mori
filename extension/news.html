@@ -1,0 +1,128 @@
+<html>
+
+    <head>
+        <title>news</title>
+        <script src="resources/js/vue.js"></script>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+        <script src="resources/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="resources/css/news.css">
+        <link rel="stylesheet" href="resources/css/news_meta.css">
+    </head>
+    <body>
+        <div id="content">
+            <div class="dropdown">
+                <button id="dropdown_btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{article}}
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li v-for='item in sources'>
+                        <a v-on:click="open(item.id,item.name)">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<li>
+<div class='tile'>
+<p class="title">{{items[0].name}}</p>
+<p class="category">{{items[0].category}}</p>
+<a class="link">{{items[0].url}}</a>
+</div>
+</li>-->
+            <!--<li class="col-xs-8" v-for='(item, index) in items'>
+<div class='tile'>
+<p class="title">{{item.name}}</p>
+<p class="category">{{item.category}}</p>
+<a class="link" v-bind:href='item.url'>{{item.url}}</a>
+</div>
+</li>-->
+            <div class='tile' v-for='(item, index) in items'>
+
+                <div class="desc">
+                    <p class="title">{{item.title}}</p>
+                    <p class="description">{{item.description}}</p>
+                    <a class="link" v-bind:href='item.url' target="_blank">read more...</a>
+                </div>
+                <img v-bind:src="item.urlToImage">
+            </div>
+            <!--<div class='tile'>
+<p class="title">{{content.name}}</p>
+<p class="category">{{content.category}}</p>
+<a class="link">{{content.url}}</a>
+</div>-->
+        </div>
+        <script>
+
+            var news = new Vue({
+                el: '#content',
+                data: {
+                    sources:[],
+                    items:[],
+                    article: ''
+                },
+                methods:{
+                    itemsinit: function(items){
+                        $.each(items, function() {
+                            if (this.description.length>100) {
+                                var desc = this.description;
+                                this.description = desc.slice(0,100);
+                                this.description+='...';
+                            }
+                        });
+                        this.items = items;
+
+                    },
+                    sourcesinit: function(items){
+                        this.sources = items;
+                        this.article = items[0].name;
+                    },
+                    open: function(id,name){
+                        setArticle(id);
+                        console.log(id+", "+name);
+                        this.article = name;
+                    }
+                }
+
+            }
+                              );
+            /*
+            $.ajax({
+                //url: "https://newsapi.org/v1/sources?language=en",
+                url: 'https://newsapi.org/v1/articles?source=abc-news-au&apiKey=c0116267d97147c4bb467508c813199a',
+                success: function(result){
+                    var items = result.articles;
+                    console.log('%o',items);
+                    news.itemsinit(items);
+                }
+            }); */
+
+            $.ajax({
+                url:'https://newsapi.org/v1/sources',
+                success: function(result){
+                    var items = result.sources;
+                    console.log('sources %o',items);
+                    news.sourcesinit(items);
+                    setArticle(items[0].id);
+                }
+            })
+
+            function setArticle(name){
+                $.ajax({
+                    //url: "https://newsapi.org/v1/sources?language=en",
+                    url: 'https://newsapi.org/v1/articles?source='+name+'&apiKey=c0116267d97147c4bb467508c813199a',
+                    success: function(result){
+                        var items = result.articles;
+                        console.log('%o',items);
+                        news.itemsinit(items);
+                    }
+                });
+            }
+
+
+        </script>
+
+    </body>
+
+
+</html>

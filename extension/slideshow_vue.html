@@ -25,35 +25,47 @@
                 <div v-else>
 
                     <div class="slideshow-container">
-
-                        <div class="mySlides  " id="1">
-                            <!--h1>keep it real with asics gel lyte III</h1-->
-                            <img class='img desktop' src='resources/images/wallpaper_kido2.jpg'>
-                            <img class='img  mobile' src='resources/images/wallpaper_kido2_mobile.jpg'>
+                        <div v-if="unsplash_success">
+                            <div class=desc>
+                                <p class="creator">{{unsplash.user.name}}</p>
+                                <a class='link' v-bind:href='unsplash.links.download' target="_blank">download</a>
+                            </div>
+                            <div class="mySlides  " id="1" style="animation: fadein 5s">
+                                <!--h1>keep it real with asics gel lyte III</h1-->
+                                <img class='img desktop' v-bind:src='unsplash.urls.full'>
+                                <img class='img  mobile' v-bind:src='unsplash.urls.regular'>
+                            </div>
                         </div>
+                        <div v-else>
+                            <div class="mySlides  " id="1">
+                                <!--h1>keep it real with asics gel lyte III</h1-->
+                                <img class='img desktop' src='resources/images/wallpaper_kido2.jpg'>
+                                <img class='img  mobile' src='resources/images/wallpaper_kido2_mobile.jpg'>
+                            </div>
 
-                        <div class="mySlides  " id="2">
-                            <!--h1>N9000 for the win in Diadora</h1-->
-                            <img class='img desktop' src='resources/images/wallpaper_kido3v2.jpg'>
-                            <img class='img  mobile' src='resources/images/wallpaper_kido3v2_mobile.jpg'>
-                        </div>
+                            <div class="mySlides  " id="2">
+                                <!--h1>N9000 for the win in Diadora</h1-->
+                                <img class='img desktop' src='resources/images/wallpaper_kido3v2.jpg'>
+                                <img class='img  mobile' src='resources/images/wallpaper_kido3v2_mobile.jpg'>
+                            </div>
 
-                        <div class="mySlides  " id="3">
-                            <!--h1>New Balance 997 brings the balance of the world</h1-->
-                            <img class='img desktop' src='resources/images/wallpaper_kido1.jpg'>
-                            <img class='img  mobile' src='resources/images/wallpaper_kido1_mobile.jpg'>
+                            <div class="mySlides  " id="3">
+                                <!--h1>New Balance 997 brings the balance of the world</h1-->
+                                <img class='img desktop' src='resources/images/wallpaper_kido1.jpg'>
+                                <img class='img  mobile' src='resources/images/wallpaper_kido1_mobile.jpg'>
 
-                        </div>
-                        <div class="mySlides " id="4">
-                            <!--h1>keep it tight for the air force</h1-->
-                            <img class='img desktop' src='resources/images/wallpaper_skull.png'>
-                            <img class='img  mobile' src='resources/images/wallpaper_skull_mobile.jpg'>
-                        </div>
-                        <div class="mySlides  " id="5">
-                            <!--h1>keep it tight for the air force</h1-->
-                            <img class='img desktop' src='resources/images/wallpaper_skullv2.jpg'>
-                            <img class='img mobile' src='resources/images/wallpaper_skullv2_mobile.jpg'>
+                            </div>
+                            <div class="mySlides " id="4">
+                                <!--h1>keep it tight for the air force</h1-->
+                                <img class='img desktop' src='resources/images/wallpaper_skull.png'>
+                                <img class='img  mobile' src='resources/images/wallpaper_skull_mobile.jpg'>
+                            </div>
+                            <div class="mySlides  " id="5">
+                                <!--h1>keep it tight for the air force</h1-->
+                                <img class='img desktop' src='resources/images/wallpaper_skullv2.jpg'>
+                                <img class='img mobile' src='resources/images/wallpaper_skullv2_mobile.jpg'>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,17 +76,30 @@
                     el: '#content',
                     data:{
                         items:[],
-                        local: false
+                        local: false,
+                        unsplash_success: false,
+                        unsplash:[]
                     },
                     methods:{
 
                         init: function(){
-                            this.items = getItemStorage();       if(this.items.length>0){
-                                this.local= true;
+                            this.items = getItemStorage();
+                            try {
+                                if(this.items.length>0){
+                                    this.local= true;
+                                }
+                            }
+                            catch (e) {
+                                console.log("getting unsplash image");
+                                getUnsplashImage();
                             }
                             console.log(this.items.length);
                         },
-
+                        unsplash_set: function(result){
+                            this.unsplash = result[0];
+                            console.log("unsplash images %o",this.unsplash);
+                            this.unsplash_success = true;
+                        }
                     }
                 });
 
@@ -85,6 +110,16 @@
                     return item;
                 }
 
+                function getUnsplashImage(){
+                    $.ajax({
+                        url: "https://api.unsplash.com/photos/?client_id=b0c7eaa163c5cb5dd8867d41eb77d83a0d47f7e5717668b1270e0b469174e033&per_page=1",
+                        success: function(result){
+                            console.log('unsplash %o',result);
+                            slideshow.unsplash_set(result);
+                        }
+                    })
+
+                }
 
 
                 /*function loadcolor(){
@@ -121,7 +156,9 @@
                 function startInterval(){
 
                     intervl = setInterval(function(){
-                        autoslide()
+                        if(document.getElementsByClassName("mySlides").length>1)
+                            autoslide()
+
                     },10000);
                 }
                 function autoslide(){
