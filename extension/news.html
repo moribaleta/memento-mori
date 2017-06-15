@@ -59,7 +59,8 @@
                 data: {
                     sources:[],
                     items:[],
-                    article: ''
+                    article: '',
+                    curr_id: ''
                 },
                 methods:{
                     itemsinit: function(items){
@@ -76,12 +77,18 @@
                     sourcesinit: function(items){
                         this.sources = items;
                         this.article = items[0].name;
+                        this.curr_id = items[0].id;
                     },
                     open: function(id,name){
                         setArticle(id);
                         console.log(id+", "+name);
                         this.article = name;
+                        this.curr_id = id;
+                    },
+                    reload: function(){
+                        setArticle(this.curr_id);
                     }
+
                 }
 
             }
@@ -96,6 +103,7 @@
                     news.itemsinit(items);
                 }
             }); */
+
 
             $.ajax({
                 url:'https://newsapi.org/v1/sources',
@@ -118,6 +126,9 @@
                     }
                 });
             }
+
+            setInterval(news.reload(),1800000);
+
 
 
         </script>

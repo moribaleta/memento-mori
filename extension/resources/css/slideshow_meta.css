@@ -17,12 +17,17 @@ body{
 
     display: none;
 }
+
+.mobile_res{
+    display: none;
+}
 @media screen and (max-width: 480px){
     
     .desktop{
         display: none;
     }
-    .mobile{
+    .mobile, .mobile_res{
         display: block;
     }    
+
 }
