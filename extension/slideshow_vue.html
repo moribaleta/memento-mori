@@ -6,8 +6,7 @@
             <script src="resources/js/jquery-3.2.1.min.js"></script>
             <script src="resources/js/vue.js"></script>
             <link rel="stylesheet" href="resources/css/slideshow.css">
-            <link rel="stylesheet" href="resources/css/slideshow_meta.css">
-            <script src="resources/js/colorthief.js"></script>
+            <link rel="stylesheet" href="resources/css/slideshow_meta.css">             <link rel='stylesheet' href="resources/css/loading.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
 
@@ -17,7 +16,7 @@
                     <div class="slideshow-container" id="slideshow-container"   v-for="(item, index) in items">
                         <div class="mySlides" v-bind:id="index+1" >
                             <img class='img desktop' v-bind:src="item.desktop">
-                            <img class='img  mobile' v-bind:src = "item.mobile">
+                            <img class='img  mobile' v-bind:src = "item.desktop">
                         </div>
 
                     </div>
@@ -26,50 +25,57 @@
 
                     <div class="slideshow-container">
                         <div v-if="unsplash_success">
+                            <div class="load">
+                                <span class="cssload-loader">
+                                    <span class="cssload-loader-inner"></span>
+                                </span>
+                            </div>
                             <div class=desc>
                                 <p class="creator">{{unsplash.user.name}}</p>
                                 <a class='link' v-bind:href='unsplash.links.download' target="_blank">download</a>
                             </div>
                             <div class="mySlides  " id="1" style="animation: fadein 5s">
                                 <!--h1>keep it real with asics gel lyte III</h1-->
-                                <img class='img desktop' v-bind:src='unsplash.urls.full'>
-                                <img class='img  mobile' v-bind:src='unsplash.urls.regular'>
-                            </div>
-                        </div>
-                        <div v-else>
-                            <div class="mySlides  " id="1">
-                                <!--h1>keep it real with asics gel lyte III</h1-->
-                                <img class='img desktop' src='resources/images/wallpaper_kido2.jpg'>
-                                <img class='img  mobile_res' src='resources/images/wallpaper_kido2_mobile.jpg'>
-                            </div>
 
-                            <div class="mySlides  " id="2">
-                                <!--h1>N9000 for the win in Diadora</h1-->
-                                <img class='img desktop' src='resources/images/wallpaper_kido3v2.jpg'>
-                                <img class='img  mobile_res' src='resources/images/wallpaper_kido3v2_mobile.jpg'>
-                            </div>
-
-                            <div class="mySlides  " id="3">
-                                <!--h1>New Balance 997 brings the balance of the world</h1-->
-                                <img class='img desktop' src='resources/images/wallpaper_kido1.jpg'>
-                                <img class='img  mobile_res' src='resources/images/wallpaper_kido1_mobile.jpg'>
-
-                            </div>
-                            <div class="mySlides " id="4">
-                                <!--h1>keep it tight for the air force</h1-->
-                                <img class='img desktop' src='resources/images/wallpaper_skull.png'>
-                                <img class='img  mobile_res' src='resources/images/wallpaper_skull_mobile.jpg'>
-                            </div>
-                            <div class="mySlides  " id="5">
-                                <!--h1>keep it tight for the air force</h1-->
-                                <img class='img desktop' src='resources/images/wallpaper_skullv2.jpg'>
-                                <img class='img mobile_res' src='resources/images/wallpaper_skullv2_mobile.jpg'>
+                                <img class='img desktop' v-bind:src='unsplash.urls.full'
+                                     onload="removeLoad()">
+                                <img class='img  mobile' v-bind:src='unsplash.urls.regular' onload="removeLoad()">
+                                <!--<img class="img load">-->
 
                             </div>
                         </div>
+                        <!--div v-else>
+<div class="mySlides  " id="1">
+<img class='img desktop' src='resources/images/wallpaper_kido2.jpg'>
+<img class='img  mobile_res' src='resources/images/wallpaper_kido2_mobile.jpg'>
+</div>
+
+<div class="mySlides  " id="2">
+<img class='img desktop' src='resources/images/wallpaper_kido3v2.jpg'>
+<img class='img  mobile_res' src='resources/images/wallpaper_kido3v2_mobile.jpg'>
+</div>
+
+<div class="mySlides  " id="3">
+<img class='img desktop' src='resources/images/wallpaper_kido1.jpg'>
+<img class='img  mobile_res' src='resources/images/wallpaper_kido1_mobile.jpg'>
+
+</div>
+<div class="mySlides " id="4">
+
+<img class='img desktop' src='resources/images/wallpaper_skull.png'>
+<img class='img  mobile_res' src='resources/images/wallpaper_skull_mobile.jpg'>
+</div>
+<div class="mySlides  " id="5">
+
+<img class='img desktop' src='resources/images/wallpaper_skullv2.jpg'>
+<img class='img mobile_res' src='resources/images/wallpaper_skullv2_mobile.jpg'>
+
+</div>
+</div-->
                     </div>
                 </div>
             </div>
+            <!--<script src="resources/js/colorthief.js"></script>-->
             <script>
 
                 var slideshow = new Vue({
@@ -185,7 +191,13 @@
 
                 })
 
+                function removeLoad(){
+                    $('.load').css('animation','fadeout 3s');
+                    setTimeout(function(){
+                        $('.load').hide();
+                    },1500);
 
+                }
 
 
             </script>

@@ -66,16 +66,18 @@ margin-left: 10px;
     margin: 10px;
     float: left;
     border-radius: 2px;
+    overflow: hidden;
+    position: relative;
 }
 
 .tile .desc{
     font-family: sans-serif;
     color: white;
-    width: 320px;
+    height: 100%;
+    width: 100%;
     position: absolute;
     z-index: 1;
-    padding: 0 10px;
-    height: 180px;
+    padding: 10px;
 }
 
 .tile .desc .title{
@@ -114,14 +116,16 @@ margin-left: 10px;
 
 .tile:hover img{
     opacity: 0.5;
-
 }
 
 .tile img{
     transition: all .7s ease-in-out;
-    width: 360px;
-    height: 200px;
+    /*width: 360px;
+    height: 200px;*/
     position: absolute;
     display: inline-block;
     border-radius: 2px;
+
+    width: 100%;
+
 }

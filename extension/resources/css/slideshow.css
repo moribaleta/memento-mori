@@ -13,14 +13,25 @@ body{
 }
 .mySlides{ 
     width: 100%;
-     animation: slideinright 10s;
-    
+    animation: slideinright 10s;
+
 }
 .mySlides img{    
     height: auto;
     width: 100%;
     transition: all .2s ease-in-out;
+
 }  
+
+.load{
+    background: white;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 15%;
+}
 
 .desc{
     padding: 10px;
@@ -48,6 +59,8 @@ body{
 .link{
     display: none;
 }
+
+
 
 /*from left to right*/
 @keyframes slideinright{

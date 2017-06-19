@@ -6,9 +6,13 @@
         <link rel="stylesheet" href="resources/css/style.css">
         <link rel="stylesheet" href="resources/css/style_responsive.css">
         <link rel="stylesheet" href="resources/css/hamburger.css">
+
         <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="resources/js/jquery-3.2.1.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="resources/js/jquery.mobile-1.4.5.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
     </head>
     <body> 
@@ -36,10 +40,11 @@
         </div>
 
         <div class="search">
-           <div class="shadow"></div>
+            <div class="shadow"></div>
             <div class='form'>
-                <input type="text" id="text" name="q" placeholder="Google search" 
-                       autofocus />
+                <input type="text" id="text" name="q" placeholder="Google search" />
+                <!-- autofocus-->
+
                 <button id="button" onclick="submit()"> search </button>
             </div>
             <div class=time>
@@ -124,7 +129,7 @@ src="wallpaper.html"></iframe>
                     $('.background').css('filter','blur(10px)');                    
                     open_close = false;   button.src="resources/images/ic_close_white_48px.svg";
                     $(button_bg).css('background','rgba(0,0,0,0)');
-                    $('#text').focus();
+                    //$('#text').focus();
                 }else{     
                     text_input.value = "";
                     $('.search').addClass('close');
@@ -148,7 +153,7 @@ src="wallpaper.html"></iframe>
 
             var interval = setInterval(function(){
                 getTime();
-            },1000);
+            },60000);
 
             var d = new Date();
             var weekday = new Array(7);
@@ -161,13 +166,20 @@ src="wallpaper.html"></iframe>
             weekday[6] = "Saturday";
 
             function getTime(){
+
+                var time =(new Date()).toLocaleTimeString().match(/\d{2}:\d{2}|[AMP]+/g).join(' ');
+                $('.time_value').html(time);
+            }
+
+            function getDate(){
                 var time = new Date().toLocaleString();
                 time = time.split(',');                
                 var n = weekday[d.getDay()] +" "+ time[0];
                 $('.date').html(n);
-                $('.time_value').html(time[1]); 
             }
+
             getTime();
+            getDate();
 
             var loc_detail =document.getElementById('location_detail');
             function getLocation() {
@@ -337,19 +349,33 @@ src="wallpaper.html"></iframe>
                         $('.weather').hide();    
                     },500);
                     $('.weather').css("animation",'fadeoutright 1s');
-
-
                 }
             });
+            function close_panel(){
+                setTimeout(function(){
+                    $('.panel').css("display","none");
+                },300);
+                $('.panel').css("animation",'fadeoutright .55s');
+                $('.weather').show();
+                $('.weather').css("animation",'fadeinright 1s');
+                $('.shadow').css("display","none");
+                $('.hamburger').removeClass("is-active");
+            }
+
+
+
             $('.shadow').on('click',function(){
                 $('.hamburger').click();
             })
-            /*
-            $('body').on('swipeleft',function(){
+
+            $('.search').on('swipeleft',function(){
                 $('.hamburger').click();
-                alert('swipe');
             });
-*/
+
+            $('.panel').on('swiperight',function(){
+                close_panel();
+            })
+
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM&libraries=places&callback=getLocation"
                 async defer></script>
